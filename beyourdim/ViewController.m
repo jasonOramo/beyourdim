@@ -37,8 +37,24 @@
     [view setBackgroundColor:[UIColor blackColor]];
     [view setAlpha:0.5];
     [self.view addSubview:view];
-
+    
+    activityInd = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f,32.0f)];
+    [activityInd setCenter:view.center];
+    [activityInd setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
+    [view addSubview:activityInd];
+    
+    [activityInd startAnimating];
 }
 
+-(void) webViewDidFinishLoad:(UIWebView *)webView{
+    [activityInd stopAnimating];
+    UIView *view = (UIView *)[self.view viewWithTag:108];
+    [view removeFromSuperview];
+}
+-(void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [activityInd stopAnimating];
+    UIView *view = (UIView *)[self.view viewWithTag:108];
+    [view removeFromSuperview];
+}
 
 @end
